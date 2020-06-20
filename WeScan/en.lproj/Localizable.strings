@@ -18,4 +18,6 @@
 /* The button titles on the Scanning screen. */
 "wescan.scanning.cancel" = "Cancel";
 "wescan.scanning.auto" = "Auto";
+"wescan.scanning.multi" = "Multi";
 "wescan.scanning.manual" = "Manual";
+

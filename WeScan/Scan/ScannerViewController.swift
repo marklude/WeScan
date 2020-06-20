@@ -50,6 +50,14 @@ final class ScannerViewController: UIViewController {
         return button
     }()
     
+    private lazy var multiScanButton: UIBarButtonItem = {
+        let title = NSLocalizedString("wescan.scanning.multi", tableName: nil, bundle: Bundle(for: ScannerViewController.self), value: "Multi", comment: "The multi button state")
+        let button = UIBarButtonItem(title: title, style: .plain, target: self, action: #selector(toggleAutoScan))
+        button.tintColor = .white
+        
+        return button
+    }()
+    
     private lazy var flashButton: UIBarButtonItem = {
         let image = UIImage(named: "flash", in: Bundle(for: ScannerViewController.self), compatibleWith: nil)
         let button = UIBarButtonItem(image: image, style: .plain, target: self, action: #selector(toggleFlash))
@@ -129,8 +137,9 @@ final class ScannerViewController: UIViewController {
     }
     
     private func setupNavigationBar() {
-        navigationItem.setLeftBarButton(flashButton, animated: false)
+        //navigationItem.setLeftBarButton(flashButton, animated: false)
         navigationItem.setRightBarButton(autoScanButton, animated: false)
+        navigationItem.setLeftBarButtonItems([flashButton,multiScanButton], animated: false)
         
         if UIImagePickerController.isFlashAvailable(for: .rear) == false {
             let flashOffImage = UIImage(named: "flashUnavailable", in: Bundle(for: ScannerViewController.self), compatibleWith: nil)
@@ -241,6 +250,8 @@ final class ScannerViewController: UIViewController {
             autoScanButton.title = NSLocalizedString("wescan.scanning.auto", tableName: nil, bundle: Bundle(for: ScannerViewController.self), value: "Auto", comment: "The auto button state")
         }
     }
+    
+    
     
     @objc private func toggleFlash() {
         let state = CaptureSession.current.toggleFlash()
